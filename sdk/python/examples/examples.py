@@ -1,3 +1,4 @@
+import logging
 import time
 
 from broker.client import BrokerClient
@@ -13,7 +14,7 @@ if __name__ == '__main__':
         "https": "",
     }
 
-    entry_point = ''  # input your broker api entry point
+    entry_point = ''  # like: https://api.xxx.yyy/openapi/ where xxx.yyy is your base domain
     b = BrokerClient(entry_point, api_key='', secret='', proxies=proxies)
 
     print(b.time())

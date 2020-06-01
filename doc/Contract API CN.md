@@ -666,7 +666,6 @@ GET /openapi/contract/v1/openOrders
 ------------ | ------------ | ------------ | ------------ | --------
 `symbol`|string|`NO`||合约名称。如果没有在请求里发送，所有合约的未完成委托都会被返回。
 `orderId`|integer|`NO`||订单ID
-`side`|string|`NO`||订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 `orderType`|string|`YES`||订单类型（`LIMIT`、`STOP`）
 `limit`|integer|`NO`|`20`|返回值的长度。
 
@@ -744,7 +743,6 @@ GET /openapi/contract/v1/historyOrders
 ------------ | ------------ | ------------ | ------------ | --------
 `symbol`|string|`NO`||Symbol to return open orders for. If not sent, orders of all contracts will be returned.
 `orderId`|integer|`NO`|| Order ID
-`side`|string|`NO`||Direction of the order. Possible values include `BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, and `SELL_CLOSE`.
 `orderType`|string|`YES`||The order type, possible types: `LIMIT`, `STOP`
 `limit`|integer|`NO`|`20`|Number of entries to return.
 
@@ -897,7 +895,6 @@ GET /openapi/contract/v1/myTrades
 ------------ | ------------ | ------------ | ------------ | -------
 `symbol`|string|`NO`|| 合约名称。如果没有发送，所有合约的成交历史都会被返回。
 `limit`|integer|`NO`|`20`|返回限制(最大值为1000)
-`side`|string|`NO`||订单方向
 `fromId`|integer|`NO`||从TradeId开始（用来查询成交订单）
 `toId`|integer|`NO`||到TradeId结束（用来查询成交订单）
 
@@ -906,7 +903,8 @@ GET /openapi/contract/v1/myTrades
 ------------ | ------------ | ------------ | ------------
 `time`|long|`1551062936784`|订单生成是的时间戳
 `tradeId`|long|`49366`|成交ID
-`orderId`|integer|`891`|成交ID
+`orderId`|long|`630491436`|订单ID
+`matchOrderId`|long|`630491432`| 成交对手订单ID
 `symbolId`|string|`BTC-PERP-REV`|合约名称
 `price`|float|`4765.29`|成交价格
 `quantity`|float|`1.01`|成交数量
@@ -914,6 +912,7 @@ GET /openapi/contract/v1/myTrades
 `fee`|||实际手续费
 `side`|string|`BUY`|订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 `orderType`|string|`LIMIT`|订单类型（`LIMIT`、`MARKET`)
+`pnl`|float|`100.1`|成交盈亏
 
 
 ### **Example:**
@@ -924,6 +923,7 @@ GET /openapi/contract/v1/myTrades
     'time': '1570760582848',
     'tradeId': '469968263995080704',
     'orderId': '469968263793737728',
+    "matchOrderId": 436002617267469062,
     'accountId': '456552319339779840',
     'symbolId': 'BTC-PERP-REV',
     'price': '8531.17',
@@ -931,7 +931,8 @@ GET /openapi/contract/v1/myTrades
     'feeTokenId': 'TBTC',
     'fee': '0.00000586',
     'type': 'LIMIT',
-    'side': 'BUY_OPEN'
+    'side': 'BUY_OPEN',
+    'pnl': '100.1'
   },...
 ]
 ```
@@ -1251,3 +1252,5 @@ A confirmation message will be returned.
 `LIMIT`: 订单会以一个给定（或者更好）的价格成交
 
 `STOP`: 一旦价格到达`triggerPrice`（触发价），订单会被触发
+
+```

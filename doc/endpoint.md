@@ -1,4 +1,4 @@
-# Api Endpoints for Pbank
+# Api Endpoints for BlueHelix Broker
 
 Name | base endpoint
 ------------ | ------------

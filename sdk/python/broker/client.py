@@ -346,7 +346,7 @@ class BrokerContractClient(Request):
             'side': order_side,
             'amount': amount
         }
-        return self._post('contract/modifyMargin', signed=True, params=params, version=None)
+        return self._post('contract/modifyMargin', signed=True, data=params, version=None)
 
     def get_contracts(self):
         """
@@ -384,7 +384,7 @@ class BrokerContractClient(Request):
         params = {
             'symbol': symbol
         }
-        return self._quote_get('contract/index', params=params, version=None)
+        return self._quote_get('contract/index', params=params)
 
     def klines(self, symbol, interval='1m', start_time='', end_time='', limit=100):
         """
